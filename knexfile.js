@@ -1,37 +1,35 @@
-require("dotenv").config();
-const pg = require("pg");
-
-pg.defaults.ssl = true;
+const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
   development: {
-    client: "pg",
-    useNullAsDefault: true,
+    client: "sqlite3",
     connection: {
-      filename: "./data/users.db3"
+      filename: "./database/co-make.db3"
     },
+    useNullAsDefault: true,
     pool: {
-      min: 2,
-      max: 10
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      }
     },
     migrations: {
-      directory: "./data/migrations"
+      directory: "./database/migrations"
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: "./database/seeds"
     }
   },
   testing: {
     client: "pg",
     connection: {
-      filename: "./data/test.db3"
+      filename: "./database/test.db3"
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./data/migrations"
+      directory: "./database/migrations"
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: "./database/seeds"
     },
     pool: {
       min: 2,
@@ -41,16 +39,12 @@ module.exports = {
 
   production: {
     client: process.env.DATABASE_URL,
+    connection: dbConnection,
     migrations: {
-      directory: "./data/migrations"
+      directory: "./database/migrations"
     },
     seeds: {
-      directory: "./data/seeds"
-    },
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      directory: "./database/seeds"
     },
     migrations: {
       tableName: "knex_migrations"
