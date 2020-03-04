@@ -20,7 +20,7 @@ module.exports = {
     }
   },
   testing: {
-    client: "pg",
+    client: "sqlite3",
     connection: {
       filename: "./database/test.db3"
     },
@@ -30,10 +30,6 @@ module.exports = {
     },
     seeds: {
       directory: "./database/seeds"
-    },
-    pool: {
-      min: 2,
-      max: 10
     }
   },
 
