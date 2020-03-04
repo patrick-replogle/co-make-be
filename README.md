@@ -200,7 +200,7 @@ GET /api/posts/by/user
 
 ### Add new post
 
-Required fields: description, city, zip_code
+Required fields: title, description, city, zip_code
 
 optional fields: post_image_url
 
@@ -210,6 +210,7 @@ Expected Request Body:
 
 ```
 {
+  "title": "need help",
   "description": "stuff needs to be fixed",
   "city": "Portland",
   "zip_code": "97206",
@@ -222,6 +223,7 @@ Returns:
 ```
 {
   "id": 5,
+  "title": "need help",
   "description": "stuff needs to be fixed",
   "post_image_url": "www.image.com",
   "city": "Portland",
@@ -229,7 +231,8 @@ Returns:
   "user_id": 1,
   "votes": 0,
   "authorUsername": "user1",
-  "authorEmail": "fakeuser1@gmail.com"
+  "authorEmail": "fakeuser1@gmail.com",
+  "createdAt": "2020-03-04 23:15:58"
 }
 ```
 
