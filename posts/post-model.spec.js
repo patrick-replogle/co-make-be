@@ -2,6 +2,7 @@ const db = require("../database/dbConfig.js");
 const postModel = require("./post-model.js");
 
 const payload = {
+  title: "title",
   description: "new post goes here",
   city: "Portland",
   zip_code: "97219",

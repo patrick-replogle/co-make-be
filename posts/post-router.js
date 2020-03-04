@@ -122,6 +122,7 @@ router.post("/", postFields, async (req, res, next) => {
     const { id } = decoded;
 
     const payload = {
+      title: req.body.title,
       description: req.body.description,
       city: req.body.city,
       zip_code: req.body.zip_code,
@@ -140,6 +141,7 @@ router.put("/:id", postFields, isAuthor, async (req, res, next) => {
   try {
     const { id } = req.params;
     const payload = {
+      title: req.body.title,
       description: req.body.description,
       city: req.body.city,
       zip_code: req.body.zip_code,
