@@ -41,7 +41,7 @@ Base url: "https://co-make-be.herokuapp.com/"
 ### Votes endpoints
 | http type |            endpoint            |      category    | payload |
 | --------- | :----------------------------: | --------------:  | -------:|
-| put       | /api/posts/:id/increment/votes | increase votes   |      no |
+| post      | /api/posts/:id/increment/votes | increase votes   |      no |
 | put       | /api/posts/:id/decrement/votes | decrease votes   |      no |
 
 
