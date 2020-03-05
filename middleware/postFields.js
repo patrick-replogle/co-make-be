@@ -6,7 +6,7 @@ function postFields(req, res, next) {
     !req.body.zip_code
   ) {
     res.status(400).json({
-      message: "description, city, and zip_code are all required fields"
+      message: "title, description, city, and zip_code are all required fields"
     });
   } else {
     next();
