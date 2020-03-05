@@ -2,7 +2,7 @@ const Posts = require("../posts/post-model.js");
 
 async function verifyComment(req, res, next) {
   if (!req.body.text) {
-    res.status(400).json({ message: "username and password fields required " });
+    res.status(400).json({ message: "text field is required " });
   }
   const post = await Posts.findPostById(req.params.id);
   if (!post) {
