@@ -197,29 +197,6 @@ describe("delete post", () => {
   });
 });
 
-describe("decrement votes", () => {
-  test("should return a 200 status", async () => {
-    const res = await supertest(server)
-      .put("/api/posts/1/decrement/votes")
-      .set("Authorization", `${token}`);
-    expect(res.status).toBe(200);
-  });
-
-  test("should return json", async () => {
-    const res = await supertest(server)
-      .put("/api/posts/1/decrement/votes")
-      .set("Authorization", `${token}`);
-    expect(res.type).toBe("application/json");
-  });
-
-  test("votes should be 4", async () => {
-    const res = await supertest(server)
-      .put("/api/posts/1/decrement/votes")
-      .set("Authorization", `${token}`);
-    expect(res.body.votes).toBe(4);
-  });
-});
-
 describe("add comment to post", () => {
   test("should return a 200 status", async () => {
     const res = await supertest(server)
