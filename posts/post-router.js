@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const Posts = require("./post-model.js");
 const Comments = require("../comments/comment-model.js");
+const Votes = require("../votes/vote-model.js");
 
 const { postFields } = require("../middleware/postFields.js");
 const { verifyVotes } = require("../middleware/verifyVotes.js");
@@ -170,16 +171,30 @@ router.delete("/:id", isAuthor, async (req, res, next) => {
 });
 
 // increment votes on a post
-router.put("/:id/increment/votes", verifyVotes, async (req, res, next) => {
+router.post("/:id/increment/votes", verifyVotes, async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const increment = await Posts.incrementVotes(id);
-    if (increment) {
-      res.json(await Posts.findPostById(id));
+    let decoded = jwt.decode(req.headers.authorization);
+    const { id } = decoded;
+
+    const payload = {
+      user_id: id,
+      post_id: req.params.id
+    };
+
+    const voted = await Votes.findVotesForPost(id, req.params.id);
+
+    if (voted.length === 0) {
+      await Votes.addVote(payload);
+      const increment = await Posts.incrementVotes(req.params.id);
+      if (increment) {
+        res.json(await Posts.findPostById(req.params.id));
+      } else {
+        res
+          .status(401)
+          .json({ message: "The specfified Post id does not exist" });
+      }
     } else {
-      res
-        .status(401)
-        .json({ message: "The specfified Post id does not exist" });
+      res.status(403).json({ message: "user has already voted" });
     }
   } catch (err) {
     next(err);

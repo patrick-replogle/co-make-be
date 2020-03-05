@@ -61,9 +61,16 @@ exports.up = async function(knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
   });
+
+  await knex.schema.createTable("votes", vote => {
+    vote.increments();
+    vote.integer("user_id").notNullable();
+    vote.integer("post_id").notNullable();
+  });
 };
 
 exports.down = async function(knex) {
+  await knex.schema.dropTableIfExists("votes");
   await knex.schema.dropTableIfExists("comments");
   await knex.schema.dropTableIfExists("posts");
   await knex.schema.dropTableIfExists("users");
