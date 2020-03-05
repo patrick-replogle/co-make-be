@@ -65,7 +65,14 @@ exports.up = async function(knex) {
   await knex.schema.createTable("votes", vote => {
     vote.increments();
     vote.integer("user_id").notNullable();
-    vote.integer("post_id").notNullable();
+    vote
+      .integer("post_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("posts")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
   });
 };
 

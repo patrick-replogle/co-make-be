@@ -194,7 +194,9 @@ router.post("/:id/increment/votes", verifyVotes, async (req, res, next) => {
           .json({ message: "The specfified Post id does not exist" });
       }
     } else {
-      res.status(403).json({ message: "user has already voted" });
+      await Votes.removeVote(id, req.params.id);
+      await Posts.decrementVotes(req.params.id);
+      res.json(await Posts.findPostById(req.params.id));
     }
   } catch (err) {
     next(err);
@@ -202,20 +204,20 @@ router.post("/:id/increment/votes", verifyVotes, async (req, res, next) => {
 });
 
 // decrement votes on a post
-router.put("/:id/decrement/votes", verifyVotes, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const count = await Posts.findVoteCount(id);
-    if (count.votes > 0) {
-      await Posts.decrementVotes(id);
-      res.json(await Posts.findPostById(id));
-    } else {
-      res.json(await Posts.findPostById(id));
-    }
-  } catch (err) {
-    next(err);
-  }
-});
+// router.put("/:id/decrement/votes", verifyVotes, async (req, res, next) => {
+//   try {
+//     const { id } = req.params;
+//     const count = await Posts.findVoteCount(id);
+//     if (count.votes > 0) {
+//       await Posts.decrementVotes(id);
+//       res.json(await Posts.findPostById(id));
+//     } else {
+//       res.json(await Posts.findPostById(id));
+//     }
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 // add a comment to a post
 router.post("/:id/comments", verifyComment, async (req, res, next) => {
