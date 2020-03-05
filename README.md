@@ -42,7 +42,7 @@ Base url: "https://co-make-be.herokuapp.com/"
 | http type |            endpoint            |      category    | payload |
 | --------- | :----------------------------: | --------------:  | -------:|
 | post      | /api/posts/:id/increment/votes | increase votes   |      no |
-| put       | /api/posts/:id/decrement/votes | decrease votes   |      no |
+
 
 
 ### Comments endpoints
@@ -280,15 +280,10 @@ Expected Request Body:
 
 ### Increment votes for one post using post id
 
-No need to add a payload/body to this request
+No need to add a payload/body to this request. User can only vote once. A second post from the same user to a post that he/she has already voted on will remove the first vote.
 
-PUT /api/posts/:id/increment/votes
+POST /api/posts/:id/increment/votes
 
-### Decrement votes for one post using post id
-
-No need to add a payload/body to this request
-
-PUT /api/posts/:id/decrement/votes
 
 ## Comments Endpoints
 
