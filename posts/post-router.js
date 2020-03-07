@@ -170,54 +170,33 @@ router.delete("/:id", isAuthor, async (req, res, next) => {
   }
 });
 
-// increment votes on a post
+// increment/decrement votes on a post
 router.post("/:id/increment/votes", verifyVotes, async (req, res, next) => {
   try {
     let decoded = jwt.decode(req.headers.authorization);
-    const { id } = decoded;
+    const userId = decoded.id;
+    const { id } = req.params;
 
     const payload = {
-      user_id: id,
-      post_id: req.params.id
+      user_id: userId,
+      post_id: id
     };
 
-    const voted = await Votes.findVotesForPost(id, req.params.id);
+    const voted = await Votes.findVotesForPost(userId, id);
 
     if (voted.length === 0) {
       await Votes.addVote(payload);
-      const increment = await Posts.incrementVotes(req.params.id);
-      if (increment) {
-        res.json(await Posts.findPostById(req.params.id));
-      } else {
-        res
-          .status(401)
-          .json({ message: "The specfified Post id does not exist" });
-      }
+      await Posts.incrementVotes(id);
+      res.json(await Posts.findPostById(id));
     } else {
-      await Votes.removeVote(id, req.params.id);
-      await Posts.decrementVotes(req.params.id);
-      res.json(await Posts.findPostById(req.params.id));
+      await Votes.removeVote(userId, id);
+      await Posts.decrementVotes(id);
+      res.json(await Posts.findPostById(id));
     }
   } catch (err) {
     next(err);
   }
 });
-
-// decrement votes on a post
-// router.put("/:id/decrement/votes", verifyVotes, async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
-//     const count = await Posts.findVoteCount(id);
-//     if (count.votes > 0) {
-//       await Posts.decrementVotes(id);
-//       res.json(await Posts.findPostById(id));
-//     } else {
-//       res.json(await Posts.findPostById(id));
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 // add a comment to a post
 router.post("/:id/comments", verifyComment, async (req, res, next) => {

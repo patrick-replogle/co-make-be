@@ -245,3 +245,72 @@ describe("get all comments for a post", () => {
     expect(res.body).toHaveLength(1);
   });
 });
+
+describe("increment votes on a post", () => {
+  test("should return a 200 status", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/1/increment/votes")
+      .set("Authorization", `${token}`);
+    expect(res.status).toBe(200);
+  });
+  test("should return json", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/1/increment/votes")
+      .set("Authorization", `${token}`);
+    expect(res.type).toBe("application/json");
+  });
+  test("vote count should be 6", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/1/increment/votes")
+      .set("Authorization", `${token}`);
+    expect(res.body.votes).toBe(6);
+  });
+});
+
+describe("get posts by city", () => {
+  test("should return a 200 status", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/city")
+      .set("Authorization", `${token}`)
+      .send({ city: "Portland" });
+    expect(res.status).toBe(200);
+  });
+  test("should return json", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/city")
+      .set("Authorization", `${token}`)
+      .send({ city: "Portland" });
+    expect(res.type).toBe("application/json");
+  });
+  test("res length should be 4", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/city")
+      .set("Authorization", `${token}`)
+      .send({ city: "Portland" });
+    expect(res.body).toHaveLength(4);
+  });
+});
+
+describe("get posts by zipcode", () => {
+  test("should return a 200 status", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/zipcode")
+      .set("Authorization", `${token}`)
+      .send({ zip_code: "97219" });
+    expect(res.status).toBe(200);
+  });
+  test("should return json", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/zipcode")
+      .set("Authorization", `${token}`)
+      .send({ zip_code: "97219" });
+    expect(res.type).toBe("application/json");
+  });
+  test("res length should be 1", async () => {
+    const res = await supertest(server)
+      .post("/api/posts/zipcode")
+      .set("Authorization", `${token}`)
+      .send({ zip_code: "97219" });
+    expect(res.body).toHaveLength(1);
+  });
+});
