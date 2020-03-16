@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const Users = require("./user-model.js");
 
+const { updateUser } = require("../middleware/updateUser.js");
 const { decodeToken } = require("../middleware/decodeToken.js");
 const { registerFields } = require("../middleware/registerFields.js");
 const {
@@ -28,7 +29,7 @@ router.get("/:id", decodeToken, async (req, res, next) => {
 // update user
 router.put(
   "/:id",
-  registerFields,
+  updateUser,
   decodeToken,
   isUsernameUnique,
   isEmailUnique,
