@@ -2,13 +2,11 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 const Users = require("./user-model.js");
-
 const { updateUser } = require("../middleware/updateUser.js");
 const { decodeToken } = require("../middleware/decodeToken.js");
-const { registerFields } = require("../middleware/registerFields.js");
 const {
   isUsernameUnique,
-  isEmailUnique
+  isEmailUnique,
 } = require("../middleware/isUserUnique.js");
 
 // find user by id
@@ -29,7 +27,6 @@ router.get("/:id", decodeToken, async (req, res, next) => {
 // update user
 router.put(
   "/:id",
-  updateUser,
   decodeToken,
   isUsernameUnique,
   isEmailUnique,
@@ -64,7 +61,7 @@ router.delete("/:id", decodeToken, async (req, res, next) => {
     if (removed) {
       res.json({
         message: "User account successfully deleted",
-        removed: removed
+        removed: removed,
       });
     } else {
       res.status(404).json({ message: "The specified user id does not exist" });
