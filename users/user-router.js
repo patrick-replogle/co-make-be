@@ -34,13 +34,9 @@ router.put(
     try {
       const { id } = req.params;
       const payload = req.body;
-
       const user = await Users.findById(id);
 
       if (user) {
-        const hash = bcrypt.hashSync(payload.password, 10);
-        payload.password = hash;
-
         res.json(await Users.update(id, payload));
       } else {
         res
