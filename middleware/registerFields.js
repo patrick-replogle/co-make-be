@@ -8,7 +8,7 @@ function registerFields(req, res, next) {
   ) {
     res.status(400).json({
       message:
-        "username, password, first_name, last_name, and email are all required fields"
+        "username, password, first name, last name, and email are all required fields",
     });
   } else {
     next();
@@ -16,5 +16,5 @@ function registerFields(req, res, next) {
 }
 
 module.exports = {
-  registerFields
+  registerFields,
 };

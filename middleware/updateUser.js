@@ -7,7 +7,7 @@ function updateUser(req, res, next) {
   ) {
     res.status(400).json({
       message:
-        "username, first_name, last_name, and email are all required fields"
+        "username, first name, last name, and email are all required fields",
     });
   } else {
     next();
@@ -15,5 +15,5 @@ function updateUser(req, res, next) {
 }
 
 module.exports = {
-  updateUser
+  updateUser,
 };
