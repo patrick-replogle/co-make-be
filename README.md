@@ -1,6 +1,6 @@
-# CO-MAKE-3
+# coMake
 
-Back end repository for: co-make-3
+Back end repository for: coMake
 
 Base url: "https://co-make-be.herokuapp.com/"
 
