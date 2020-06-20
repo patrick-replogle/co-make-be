@@ -4,6 +4,9 @@ Back end repository for: co-make-3
 
 Base url: "https://co-make-be.herokuapp.com/"
 
+## Tech Stack
+Node JS, Express, Knex, PostgreSQL, SQLite3, bcryptjs, jsonwebtoken
+
 ## API Routes
 
 ### Auth endpoints
