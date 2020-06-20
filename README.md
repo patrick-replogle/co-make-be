@@ -4,6 +4,10 @@ Back end repository for: coMake
 
 Base url: "https://co-make-be.herokuapp.com/"
 
+Front end repository url: https://github.com/patrick-replogle/co-make-fe
+
+Deployed front end app:
+
 ## Tech Stack
 Node JS, Express, Knex, PostgreSQL, SQLite3, bcryptjs, jsonwebtoken
 
