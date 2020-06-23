@@ -8,6 +8,8 @@ exports.seed = function (knex, Promise) {
       zip_code: "97206",
       user_id: 1,
       votes: 5,
+      photo:
+        "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80",
     },
     {
       title:
@@ -18,6 +20,8 @@ exports.seed = function (knex, Promise) {
       zip_code: "97202",
       user_id: 2,
       votes: 0,
+      photo:
+        "https://assets.budgetdumpster.com/images/leave-at-curb-furniture.jpg",
     },
     {
       title: "Looking for volunteers to help feed the homeless",
@@ -27,6 +31,8 @@ exports.seed = function (knex, Promise) {
       zip_code: "97219",
       user_id: 3,
       votes: 2,
+      photo:
+        "https://images.unsplash.com/photo-1518398046578-8cca57782e17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80",
     },
     {
       title: "Neighborhood watch in Alberta area",
@@ -36,6 +42,8 @@ exports.seed = function (knex, Promise) {
       zip_code: "97211",
       user_id: 4,
       votes: 1,
+      photo:
+        "https://images.unsplash.com/photo-1509731249271-d54ce814e701?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80",
     },
   ]);
 };

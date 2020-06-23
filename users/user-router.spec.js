@@ -19,7 +19,8 @@ const editedUser = {
   last_name: "Doe",
   email: "editeduser@gmail.com",
   password: "password",
-  profile_image_url: "http://somethinggoeshere.com"
+  city: "Portland",
+  zip_code: "97206",
 };
 
 // grab a token to test auth endpoint

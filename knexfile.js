@@ -34,10 +34,9 @@ module.exports = {
       directory: "./database/seeds",
     },
   },
-
   production: {
     client: "pg",
-    connection: process.env.DEV_DATABASE,
+    connection: dbConnection,
     useNullAsDefault: true,
     migrations: {
       directory: "./database/migrations",
