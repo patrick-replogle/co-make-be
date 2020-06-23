@@ -7,7 +7,6 @@ const payload = {
   city: "Portland",
   zip_code: "97219",
   user_id: 1,
-  post_image_url: "www.image_url.com"
 };
 
 describe("post model", () => {

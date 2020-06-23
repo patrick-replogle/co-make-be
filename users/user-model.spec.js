@@ -7,7 +7,8 @@ const newUser = {
   last_name: "Doe",
   email: "user5@gmail.com",
   password: "password",
-  profile_image_url: "http://somethinggoeshere.com"
+  city: "Portland",
+  zip_code: "97206",
 };
 
 describe("user model", () => {

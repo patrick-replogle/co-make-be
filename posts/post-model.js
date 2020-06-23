@@ -3,7 +3,7 @@ const db = require("../database/dbConfig.js");
 module.exports = {
   findAllPosts,
   findPostById,
-  findPostBy,
+  findBy,
   findUserPosts,
   findByCity,
   addPost,
@@ -11,7 +11,7 @@ module.exports = {
   removePost,
   findVoteCount,
   incrementVotes,
-  decrementVotes
+  decrementVotes,
 };
 
 function findAllPosts() {
@@ -37,25 +37,11 @@ function findPostById(id) {
 }
 
 function findByCity(city) {
-  return db("posts")
-    .select(
-      "posts.*",
-      "users.username as authorUsername",
-      "users.email as authorEmail"
-    )
-    .join("users", "posts.user_id", "users.id")
-    .whereRaw('LOWER("city") LIKE ?', city);
+  return db("posts").whereRaw('LOWER("city") LIKE ?', city);
 }
 
-function findPostBy(filter) {
-  return db("posts")
-    .select(
-      "posts.*",
-      "users.username as authorUsername",
-      "users.email as authorEmail"
-    )
-    .join("users", "posts.user_id", "users.id")
-    .where(filter);
+function findBy(filter) {
+  return db("posts").where(filter);
 }
 
 function findUserPosts(id) {
@@ -79,30 +65,21 @@ function updatePost(id, changes) {
   return db("posts")
     .where({ id })
     .update(changes)
-    .then(count => (count > 0 ? this.findPostById(id) : null));
+    .then((count) => (count > 0 ? this.findPostById(id) : null));
 }
 
 function removePost(id) {
-  return db("posts")
-    .where({ id })
-    .del();
+  return db("posts").where({ id }).del();
 }
 
 function findVoteCount(id) {
-  return db("posts")
-    .select("votes")
-    .where({ id })
-    .first();
+  return db("posts").select("votes").where({ id }).first();
 }
 
 function incrementVotes(id) {
-  return db("posts")
-    .where({ id })
-    .increment("votes", 1);
+  return db("posts").where({ id }).increment("votes", 1);
 }
 
 function decrementVotes(id) {
-  return db("posts")
-    .where({ id })
-    .decrement("votes", 1);
+  return db("posts").where({ id }).decrement("votes", 1);
 }

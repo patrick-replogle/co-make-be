@@ -1,13 +1,12 @@
 const router = require("express").Router();
-const bcrypt = require("bcryptjs");
 
 const Users = require("./user-model.js");
-const { updateUser } = require("../middleware/updateUser.js");
 const { decodeToken } = require("../middleware/decodeToken.js");
 const {
   isUsernameUnique,
   isEmailUnique,
 } = require("../middleware/isUserUnique.js");
+const { stringifyPhoto } = require("../utils/stringifyPhoto.js");
 
 // find user by id
 router.get("/:id", decodeToken, async (req, res, next) => {
@@ -15,6 +14,7 @@ router.get("/:id", decodeToken, async (req, res, next) => {
     const { id } = req.params;
     const user = await Users.findById(id);
     if (user) {
+      stringifyPhoto(user);
       res.status(200).json(user);
     } else {
       res.status(401).json({ message: "The specified user id does not exist" });
@@ -37,6 +37,7 @@ router.put(
       const user = await Users.findById(id);
 
       if (user) {
+        stringifyPhoto(user);
         res.json(await Users.update(id, payload));
       } else {
         res
