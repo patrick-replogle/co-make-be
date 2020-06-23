@@ -9,11 +9,17 @@ const { postFields } = require("../middleware/postFields.js");
 const { verifyVotes } = require("../middleware/verifyVotes.js");
 const { isAuthor } = require("../middleware/isAuthor.js");
 const { verifyComment } = require("../middleware/verifyComment.js");
+const { stringifyPhoto } = require("../utils/stringifyPhoto.js");
 
 // get all posts without comments
 router.get("/", async (req, res, next) => {
   try {
-    res.json(await Posts.findAllPosts());
+    const posts = await await Posts.findAllPosts();
+    const postsWithImages = posts.map(
+      async (post) => await stringifyPhoto(post)
+    );
+    const results = await Promise.all(postsWithImages);
+    res.json(results);
   } catch (err) {
     next(err);
   }
@@ -23,11 +29,12 @@ router.get("/", async (req, res, next) => {
 router.get("/comments", async (req, res, next) => {
   try {
     const posts = await Posts.findAllPosts();
-    const result = posts.map(async post => {
+    const result = posts.map(async (post) => {
+      stringifyPhoto(post);
       const comments = await Comments.findComments(post.id);
       return {
         ...post,
-        comments: [...comments]
+        comments: [...comments],
       };
     });
     const newRes = await Promise.all(result);
@@ -46,10 +53,14 @@ router.post("/city", async (req, res, next) => {
     const { city } = req.body;
     const posts = await Posts.findByCity(city.toLowerCase());
     if (posts.length > 0) {
-      res.json(posts);
+      const postsWithImages = posts.map(
+        async (post) => await stringifyPhoto(post)
+      );
+      const results = await Promise.all(postsWithImages);
+      res.json(results);
     } else {
       res.status(401).json({
-        message: "There are currently no posts with the specified city"
+        message: "There are currently no posts with the specified city",
       });
     }
   } catch (err) {
@@ -66,12 +77,16 @@ router.post("/zipcode", async (req, res, next) => {
         .json({ message: "zip_code field must be included" });
     }
     const { zip_code } = req.body;
-    const posts = await Posts.findPostBy({ zip_code });
+    const posts = await Posts.findBy({ zip_code });
     if (posts.length > 0) {
-      res.json(posts);
+      const postsWithImages = posts.map(
+        async (post) => await stringifyPhoto(post)
+      );
+      const results = await Promise.all(postsWithImages);
+      res.json(results);
     } else {
       res.status(401).json({
-        message: "There are currently no posts with specified zip_cod"
+        message: "There are currently no posts with specified zip code",
       });
     }
   } catch (err) {
@@ -87,9 +102,10 @@ router.get("/:id", async (req, res, next) => {
     const comments = await Comments.findComments(id);
 
     if (post) {
+      stringifyPhoto(post);
       res.status(200).json({
         ...post,
-        comments: [...comments]
+        comments: [...comments],
       });
     } else {
       res.status(401).json({ message: "The specified post id does not exist" });
@@ -107,7 +123,11 @@ router.get("/by/user", async (req, res, next) => {
 
     const posts = await Posts.findUserPosts(id);
     if (posts) {
-      res.status(200).json(posts);
+      const postsWithImages = posts.map(
+        async (post) => await stringifyPhoto(post)
+      );
+      const results = await Promise.all(postsWithImages);
+      res.json(results);
     } else {
       res.status(401).json({ message: "This user has no posts" });
     }
@@ -128,7 +148,7 @@ router.post("/", postFields, async (req, res, next) => {
       city: req.body.city,
       zip_code: req.body.zip_code,
       user_id: id,
-      post_image_url: req.body.post_image_url
+      photo: req.body.photo,
     };
 
     res.status(201).json(await Posts.addPost(payload));
@@ -146,7 +166,7 @@ router.put("/:id", postFields, isAuthor, async (req, res, next) => {
       description: req.body.description,
       city: req.body.city,
       zip_code: req.body.zip_code,
-      post_image_url: req.body.post_image_url
+      photo: req.body.photo,
     };
 
     res.status(201).json(await Posts.updatePost(id, payload));
@@ -179,7 +199,7 @@ router.post("/:id/increment/votes", verifyVotes, async (req, res, next) => {
 
     const payload = {
       user_id: userId,
-      post_id: id
+      post_id: id,
     };
 
     const voted = await Votes.findVotesForPost(userId, id);
@@ -206,7 +226,7 @@ router.post("/:id/comments", verifyComment, async (req, res, next) => {
       text: req.body.text,
       username: user.username,
       user_id: user.id,
-      post_id: req.params.id
+      post_id: req.params.id,
     };
     res.json(await Comments.addComment(payload));
   } catch (err) {

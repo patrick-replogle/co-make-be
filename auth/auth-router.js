@@ -24,7 +24,6 @@ router.post(
       user.password = hash;
 
       const newUser = await Users.add(user);
-      stringifyPhoto(newUser);
       const token = signToken(newUser);
 
       res.status(201).json({ new_user: newUser, token: token });
