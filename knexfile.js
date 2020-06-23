@@ -1,12 +1,12 @@
-// const dbConnection = process.env.DATABASE_URL;
 require("dotenv").config();
+const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
   development: {
     client: "pg",
     connection: {
       host: "localhost",
-      database: process.env.DEV_DATABASE,
+      database: "coMake",
     },
     migrations: {
       directory: "./database/migrations",

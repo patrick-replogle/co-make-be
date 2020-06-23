@@ -5,7 +5,7 @@ const Users = require("../users/user-model.js");
 
 const {
   isUsernameUnique,
-  isEmailUnique
+  isEmailUnique,
 } = require("../middleware/isUserUnique.js");
 const { loginFields } = require("../middleware/loginFields.js");
 const { registerFields } = require("../middleware/registerFields.js");
@@ -24,6 +24,7 @@ router.post(
       user.password = hash;
 
       const newUser = await Users.add(user);
+      stringifyPhoto(newUser);
       const token = signToken(newUser);
 
       res.status(201).json({ new_user: newUser, token: token });
@@ -46,7 +47,7 @@ router.post("/login", loginFields, async (req, res, next) => {
         id: user.id,
         username: user.username,
         message: `Welcome ${user.username}!`,
-        token: token
+        token: token,
       });
     } else {
       res.status(401).json({ message: "Invalid credentials" });

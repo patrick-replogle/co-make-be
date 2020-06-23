@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
   return knex("users").insert([
     {
       username: "user1",
@@ -8,8 +8,8 @@ exports.seed = function(knex, Promise) {
       last_name: "Replogle",
       email: "fakeuser1@gmail.com",
       password: bcrypt.hashSync("password", 10),
-      profile_image_url: "http://somethinggoeshere.com",
-      government_official: false
+      city: "Portland",
+      zip_code: "97206",
     },
     {
       username: "user2",
@@ -17,8 +17,8 @@ exports.seed = function(knex, Promise) {
       last_name: "Gonzalez",
       email: "fakeuser2@gmail.com",
       password: bcrypt.hashSync("password", 10),
-      profile_image_url: "http://somethinggoeshere.com",
-      government_official: false
+      city: "Portland",
+      zip_code: "97210",
     },
     {
       username: "user3",
@@ -26,8 +26,8 @@ exports.seed = function(knex, Promise) {
       last_name: "Kagak",
       email: "fakeuser3@gmail.com",
       password: bcrypt.hashSync("password", 10),
-      profile_image_url: "http://somethinggoeshere.com",
-      government_official: false
+      city: "Portland",
+      zip_code: "97211",
     },
     {
       username: "user4",
@@ -35,8 +35,8 @@ exports.seed = function(knex, Promise) {
       last_name: "Cheek",
       email: "fakeuser4@gmail.com",
       password: bcrypt.hashSync("password", 10),
-      profile_image_url: "http://somethinggoeshere.com",
-      government_official: false
-    }
+      city: "Portland",
+      zip_code: "97219",
+    },
   ]);
 };

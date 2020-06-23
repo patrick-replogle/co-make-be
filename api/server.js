@@ -11,7 +11,7 @@ const restricted = require("../middleware/restricted-middleware.js");
 const server = express();
 
 server.use(helmet());
-server.use(express.json());
+server.use(express.json({ limit: "25mb" }));
 server.use(cors());
 
 server.use("/api/auth", authRouter);
@@ -22,7 +22,7 @@ server.use("/api/comments", restricted, commentRouter);
 server.use((err, req, res, next) => {
   console.log("Error:", err.message);
   res.status(500).json({
-    message: "Something went wrong. Try again later"
+    message: "Something went wrong. Try again later",
   });
 });
 
