@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const bcrypt = require("bcryptjs");
 
 const Users = require("./user-model.js");
 const { updateUser } = require("../middleware/updateUser.js");
