@@ -7,7 +7,15 @@ Front end repository url: https://github.com/patrick-replogle/co-make-fe
 Deployed front end app:
 
 ## Tech Stack
-Node JS, Express, Knex, PostgreSQL, SQLite3, bcryptjs, jsonwebtoken
+- Node JS
+- Express
+- Knex
+- PostgreSQL 
+- SQLite3 
+- bcryptjs 
+- jsonwebtoken
+- Jest
+- Supertest
 
 ## Project Overview
 coMake is a solution oriented application geared towards bringing community members together to solve local problems. coMake provides users with a platfrom to call attention to local issues, volunteer their time or resources, or simply ask for help. 
