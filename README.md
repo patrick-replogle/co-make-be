@@ -18,7 +18,7 @@ Deployed front end app:
 - Supertest
 
 ## Project Overview
-coMake is a solution oriented application geared towards bringing community members together to solve local problems. coMake provides users with a platfrom to call attention to local issues, volunteer their time or resources, or simply ask for help. 
+CoMake is a social media website aimed at bringing community members together to solve local problems. CoMake provides users with a platfrom to call attention to local issues, volunteer their time or resources, or simply ask for help. 
 
 ## Contributor
 
