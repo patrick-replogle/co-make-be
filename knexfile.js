@@ -1,7 +1,18 @@
 require("dotenv").config();
-const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
+  production: {
+    client: "pg",
+    connection: process.env.DATABASE_URL,
+    ssl: true,
+    useNullAsDefault: true,
+    migrations: {
+      directory: "./database/migrations",
+    },
+    seeds: {
+      directory: "./database/seeds",
+    },
+  },
   development: {
     client: "pg",
     connection: {
@@ -25,21 +36,6 @@ module.exports = {
     client: "sqlite3",
     connection: {
       filename: "./database/test.db3",
-    },
-    useNullAsDefault: true,
-    migrations: {
-      directory: "./database/migrations",
-    },
-    seeds: {
-      directory: "./database/seeds",
-    },
-  },
-  production: {
-    client: "pg",
-    connection: dbConnection,
-    ssl: {   
-      require: true,
-      rejectUnauthorized: false 
     },
     useNullAsDefault: true,
     migrations: {
