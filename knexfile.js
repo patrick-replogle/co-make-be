@@ -37,6 +37,10 @@ module.exports = {
   production: {
     client: "pg",
     connection: dbConnection,
+    ssl: {   
+      require: true,
+      rejectUnauthorized: false 
+    },
     useNullAsDefault: true,
     migrations: {
       directory: "./database/migrations",
