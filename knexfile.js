@@ -3,9 +3,16 @@ require("dotenv").config();
 module.exports = {
   production: {
     client: "pg",
-    connection: process.env.DATABASE_URL,
-    ssl: true,
-    useNullAsDefault: true,
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
+    pool: {
+      min: 2,
+      max: 8,
+    },
     migrations: {
       directory: "./database/migrations",
     },
