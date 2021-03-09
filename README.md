@@ -4,7 +4,7 @@ Deployed back end url: "https://co-make-be.herokuapp.com/"
 
 Front end repository url: https://github.com/patrick-replogle/co-make-fe
 
-Deployed front end app:
+Deployed front end app: https://co-make-fe.herokuapp.com/
 
 ## Tech Stack
 - Node JS
