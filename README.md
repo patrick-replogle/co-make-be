@@ -1,6 +1,6 @@
 # coMake
 
-Deployed back end url: "https://co-make-be.herokuapp.com/"
+Deployed back end url: https://co-make-be.herokuapp.com/
 
 Front end repository url: https://github.com/patrick-replogle/co-make-fe
 
